@@ -36,6 +36,7 @@ if (!empty($_POST['autorname'] )&& !empty($_POST['songname'])){
         //echo "Playlist už tam je";
         if ($_POST['songname'] == $playl['name']&&$_POST['autorname'] == $playl['autor']){
             $errors['songname']='Písnička už je v písničkach';
+            //echo $errors['songname'];
         }
 
     } else { # unique actor entry
@@ -61,7 +62,7 @@ $pageTitle='Pridani songu';
 
 include 'inc/header.php';
 
-//isset($_POST['name']) ? $movieActorsE = $_POST['movieActors'] : $movieActorsE = '';
+
 
 ?>
     <form method="post">
@@ -71,18 +72,22 @@ include 'inc/header.php';
 
         <div class="form-group">
             <label for="autorname">jmeno autora:</label>
-            <textarea name="autorname" id="autorname" required class="form-control <?php echo (!empty($errors['autorname'])?'is-invalid':''); ?>"><?php echo htmlspecialchars($autorname)?></textarea>
-
-            <label for="songname">jmeno songu:</label>
-            <textarea name="songname" id="songname" required class="form-control <?php echo (!empty($errors['songname'])?'is-invalid':''); ?>"><?php echo htmlspecialchars($songname)?></textarea>
+            <input type="text" name="autorname" id="autorname" required class="form-control <?php echo (!empty($errors['autorname'])?'is-invalid':''); ?>value='<?php echo htmlspecialchars($autorname)?>'">
             <?php
-            if (!empty($errors['songname'])){
-                echo '<div class="invalid-feedback">'.$errors['songname'].'</div>';
+            if (!empty($errors['autorname'])){
+                echo '<div class="invalid-feedback">'.$errors['autorname'].'</div>';
             }
             ?>
-
         </div>
-
+        <div class="form-group">
+            <label for="songname">jmeno songu:</label>
+            <input type=text name="songname" id="songname" required class="form-control<?php echo (!empty($errors['songname'])?'is-invalid':''); ?>value='<?php echo htmlspecialchars($songname)?>'">
+            <?php
+            if (!empty($errors['songname'])){
+                echo '<div class="text-danger">'.$errors['songname'].'</div>';
+            }
+            ?>
+        </div>
         <button type="submit" class="btn btn-primary">uložit</button>
         <a href="index.php" class="btn btn-light">zrušit</a>
     </form>
